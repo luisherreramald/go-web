@@ -1,0 +1,48 @@
+
+[
+    {
+        "id": 1,
+        "name": "Leche",
+        "quantity": 10,
+        "code_value": "872534",
+        "is_published": true, 
+        "expiration": "25/04/2023",
+        "price": 20.15
+    },
+    {
+        "id": 2,
+        "name": "Agua con la que se lavo los pies Jesus",
+        "quantity": 10,
+        "code_value": "872535",
+        "is_published": true, 
+        "expiration": "18/04/2023",
+        "price": 90.0
+    },
+    {
+        "id": 3,
+        "name": "Proteina Liquida",
+        "quantity": 10,
+        "code_value": "872536",
+        "is_published": true, 
+        "expiration": "30/04/2023",
+        "price": 65.4
+    },
+    {
+        "id": 4,
+        "name": "Jugo",
+        "quantity": 10,
+        "code_value": "872537",
+        "is_published": true, 
+        "expiration": "19/04/2023",
+        "price": 26.23
+    },
+    {
+        "id": 5,
+        "name": "Cafe",
+        "quantity": 10,
+        "code_value": "872538",
+        "is_published": true, 
+        "expiration": "18/05/2023",
+        "price": 45.23
+    }
+]
