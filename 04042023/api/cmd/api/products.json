@@ -1,0 +1,47 @@
+[
+ {
+  "id": 1,
+  "name": "Carne de perro alta en proteina",
+  "quantity": 8,
+  "code_value": "8728",
+  "is_published": false,
+  "expiration": "03/01/2025",
+  "price": 50.4
+ },
+ {
+  "id": 2,
+  "name": "Agua con la que se lavo los pies Jesus",
+  "quantity": 10,
+  "code_value": "872535",
+  "is_published": true,
+  "expiration": "18/04/2023",
+  "price": 90
+ },
+ {
+  "id": 3,
+  "name": "Proteina Liquida",
+  "quantity": 10,
+  "code_value": "872536",
+  "is_published": true,
+  "expiration": "30/04/2023",
+  "price": 65.4
+ },
+ {
+  "id": 4,
+  "name": "Jugo",
+  "quantity": 10,
+  "code_value": "872537",
+  "is_published": true,
+  "expiration": "19/04/2023",
+  "price": 26.23
+ },
+ {
+  "id": 6,
+  "name": "Proteina en polvo",
+  "quantity": 3994,
+  "code_value": "123459",
+  "is_published": false,
+  "expiration": "03/01/2025",
+  "price": 50.4
+ }
+]

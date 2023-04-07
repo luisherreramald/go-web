@@ -2,15 +2,28 @@ package main
 
 import (
 	"api/api/cmd/api/handlers"
-	"api/api/internal/domain"
 	"api/api/internal/products"
 
 	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
+
+	"api/api/pkg/store"
 )
 
 func main() {
-	db := []*domain.Product{}
-	repositoryLocal := products.NewRepositoryLocal(db, 0)
+	err := godotenv.Load()
+
+	if err != nil {
+		panic(err)
+	}
+
+	err = store.LoadProducts()
+
+	if err != nil {
+		panic(err)
+	}
+	
+	repositoryLocal := products.NewRepositoryLocal()
 	serviceProducts := products.NewService(repositoryLocal)
 	controllerProducts := handlers.NewController(serviceProducts)
 
