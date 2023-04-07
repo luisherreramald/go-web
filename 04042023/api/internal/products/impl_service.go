@@ -13,7 +13,7 @@ type service struct {
 	rp Repository
 }
 
-func (productService *service) GetById(id int) (product *domain.Product, err error) {
+func (productService *service) GetById(id int) (product domain.Product, err error) {
 	product, err = productService.rp.GetById(id)
 	if err != nil {
 		if errors.Is(err, ErrRepoNotFound) {
@@ -31,8 +31,8 @@ func (productService *service) Create(product *domain.Product) (err error) {
 		return 
 	}
 
-	var lastId int
-	lastId, err = productService.rp.Create(product)
+	err = productService.rp.Create(product)
+
 	if err != nil {
 		if errors.Is(err, ErrRepoNotUnique) {
 			err = ErrServiceNotUnique
@@ -40,8 +40,6 @@ func (productService *service) Create(product *domain.Product) (err error) {
 		}
 		return ErrServiceInternalError
 	}
-
-	product.Id = lastId
 	return 
 }
 
@@ -57,6 +55,11 @@ func (productService *service) Update(product *domain.Product, id int) (err erro
 			err = ErrServiceNotFound
 			return
 		}
+		
+		if errors.Is(err, ErrRepoNotUnique) {
+			return ErrServiceNotUnique
+		}
+
 		return ErrServiceInternalError
 	}
 

@@ -6,8 +6,8 @@ import (
 )
 
 type Repository interface {
-	GetById(id int) (product *domain.Product, err error)
-	Create(product *domain.Product) (lastId int, err error)
+	GetById(id int) (product domain.Product, err error)
+	Create(product *domain.Product) (err error)
 	Update(product *domain.Product, id int) (err error)
 	Delete(id int) (err error)
 }
@@ -19,7 +19,7 @@ var (
 )
 
 type Service interface {
-	GetById(id int) (product *domain.Product, err error)
+	GetById(id int) (product domain.Product, err error)
 	Create(product *domain.Product) (err error)
 	Update(product *domain.Product, id int) (err error)
 	Delete(id int) (err error)

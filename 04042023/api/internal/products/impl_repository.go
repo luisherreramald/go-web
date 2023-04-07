@@ -2,70 +2,78 @@ package products
 
 import (
 	"api/api/internal/domain"
+	"api/api/pkg/store"
+	"errors"
 )
 
-func NewRepositoryLocal(db []*domain.Product, lastId int) Repository {
-	return &repositoryLocal{db: db, lastId: lastId}
+func NewRepositoryLocal() Repository {
+	return &repositoryLocal{}
 }
 
 type repositoryLocal struct {
-	db []*domain.Product
-	lastId int
+
 }
 
-func (rp *repositoryLocal) GetById(id int) (product *domain.Product, err error) {
-	for _, productArray := range rp.db {
-		if productArray.Id == id {
-			product = productArray
+func (rp *repositoryLocal) GetById(id int) (product domain.Product, err error) {
+	product, err = store.SearchProduct(id)
+
+	if err != nil  {
+		if errors.Is(err, store.ErrStoreNotFound){
+			err = ErrRepoNotFound
 			return 
 		}
+		return domain.Product{}, ErrServiceInternalError
 	}
-	err = ErrRepoNotFound
 
-	return 
+	return product, nil
 }
 
-func (rp *repositoryLocal) Create(product *domain.Product) (lastId int, err error) {
-
-	for _, productArray := range rp.db {
-		if product.CodeValue == productArray.CodeValue {
-			return 0, ErrRepoNotUnique
+func (rp *repositoryLocal) Create(product *domain.Product) (err error) {
+	err = store.ValidateCodeValue(product)
+	
+	if err != nil {
+		if errors.Is(err, store.ErrStoreNotUnique) {
+			err = ErrRepoNotUnique
 		}
+		return 
 	}
 
-	rp.lastId++
-	product.Id = rp.lastId
-
-	rp.db = append(rp.db, product)
-	lastId = rp.lastId
-
+	err = store.CreateProduct(product)
 	return 
 }
 
 func (rp *repositoryLocal) Update(product *domain.Product, id int) (err error) {
-	for index, productArray := range rp.db {
-		if productArray.Id == id {
-			rp.db[index] = product
-			return 
+	err = store.ValidateCodeValueUpdate(product, id)
+	
+	if err != nil {
+
+		if errors.Is(err, store.ErrStoreNotUnique) {
+			err = ErrRepoNotUnique
 		}
+		return 
 	}
-	
-	err = ErrRepoNotFound
-	
+
+	err = store.Update(product, id)
+
+	if err != nil {
+		if errors.Is(err, store.ErrStoreNotFound) {
+			err = ErrRepoNotFound
+		}
+		return
+	}
+
 	return 
 }
 
 func (rp *repositoryLocal) Delete(id int) (err error) {
+	err = store.Delete(id)
 
-	for index, product := range rp.db {
-		if product.Id == id {
-			rp.db = append(rp.db[:index], rp.db[index+1:]...)
-
-			return 
+	if err != nil {
+		if errors.Is(err, store.ErrStoreNotFound) {
+			err = ErrRepoNotFound
 		}
+
+		return 
 	}
-
-	err = ErrRepoNotFound
-
 	return
 }
