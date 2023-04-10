@@ -1,0 +1,110 @@
+[
+ {
+  "id": 4,
+  "name": "Jugo",
+  "quantity": 10,
+  "code_value": "872537",
+  "is_published": true,
+  "expiration": "19/04/2023",
+  "price": 26.23
+ },
+ {
+  "id": 6,
+  "name": "Proteina en polvo",
+  "quantity": 3994,
+  "code_value": "123459",
+  "is_published": false,
+  "expiration": "03/01/2025",
+  "price": 50.4
+ },
+ {
+  "id": 7,
+  "name": "Producto Nuevo",
+  "quantity": 5,
+  "code_value": "879865",
+  "is_published": true,
+  "expiration": "03/01/2026",
+  "price": 40
+ },
+ {
+  "id": 9,
+  "name": "Producto Nuevo",
+  "quantity": 5,
+  "code_value": "8798628285",
+  "is_published": true,
+  "expiration": "03/01/2026",
+  "price": 40
+ },
+ {
+  "id": 11,
+  "name": "Producto Nuevo",
+  "quantity": 5,
+  "code_value": "9273",
+  "is_published": true,
+  "expiration": "03/01/2026",
+  "price": 40
+ },
+ {
+  "id": 12,
+  "name": "Producto Nuevo",
+  "quantity": 5,
+  "code_value": "927322",
+  "is_published": true,
+  "expiration": "03/01/2026",
+  "price": 40
+ },
+ {
+  "id": 13,
+  "name": "Producto Nuevo",
+  "quantity": 5,
+  "code_value": "92732222",
+  "is_published": true,
+  "expiration": "03/01/2026",
+  "price": 40
+ },
+ {
+  "id": 14,
+  "name": "Producto Nuevo",
+  "quantity": 5,
+  "code_value": "927322993833822",
+  "is_published": true,
+  "expiration": "03/01/2026",
+  "price": 40
+ },
+ {
+  "id": 15,
+  "name": "Producto Nuevo",
+  "quantity": 5,
+  "code_value": "9222340",
+  "is_published": true,
+  "expiration": "03/01/2026",
+  "price": 40
+ },
+ {
+  "id": 16,
+  "name": "Producto Nuevo",
+  "quantity": 5,
+  "code_value": "924371",
+  "is_published": true,
+  "expiration": "03/01/2026",
+  "price": 40
+ },
+ {
+  "id": 17,
+  "name": "Producto Nuevo",
+  "quantity": 5,
+  "code_value": "9243722131",
+  "is_published": true,
+  "expiration": "03/01/2026",
+  "price": 40
+ },
+ {
+  "id": 18,
+  "name": "Producto Nuevo",
+  "quantity": 5,
+  "code_value": "92437sd31",
+  "is_published": true,
+  "expiration": "03/01/2026",
+  "price": 40
+ }
+]

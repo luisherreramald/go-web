@@ -3,12 +3,12 @@ package handlers
 import (
 	"api/api/internal/domain"
 	"api/api/internal/products"
+	"api/api/pkg/web"
 	"errors"
 	"fmt"
 	"net/http"
-	"os"
 	"strconv"
-	"api/api/pkg/web"
+
 	"github.com/gin-gonic/gin"
 )
 
@@ -19,17 +19,23 @@ func NewController (serviceProducts products.Service) *ControllerProducts {
 type ControllerProducts struct {
 	serviceProducts products.Service
 }
+func (controllerProducts *ControllerProducts) GetAllProducts() gin.HandlerFunc {
 
+	return func (context *gin.Context) {
+		products, err := controllerProducts.serviceProducts.GetAllProducts()
+
+		if err != nil {
+			web.SendErrorResponse("InternalServerError", http.StatusInternalServerError, "Internal Server Error", context)
+			return 
+		}
+
+		web.SendResponse(http.StatusOK, products, context)
+		return
+	}
+
+}
 func (controllerProduct *ControllerProducts) GetById() gin.HandlerFunc {
 	return func (context *gin.Context) {
-
-		var token = context.GetHeader("token")
-
-		if token != os.Getenv("ACCESS_TOKEN") {
-			web.SendErrorResponse("Unauthorized", http.StatusUnauthorized, "Invalid Token", context)
-			return 
-		} 
-
 		var idProduct, err = strconv.Atoi(context.Param("id"))
 
 		if err != nil {
@@ -64,12 +70,6 @@ func (controllerProducts *ControllerProducts) Create() gin.HandlerFunc {
 
 	return func(context *gin.Context) {
 		var req Request
-		var token = context.GetHeader("token")
-
-		if token != os.Getenv("ACCESS_TOKEN") {
-			web.SendErrorResponse("Unauthorized", http.StatusUnauthorized, "Invalid Token", context)
-			return 
-		} 
 
 		if err := context.ShouldBindJSON(&req); err != nil {
 			web.SendErrorResponse("BadRequest", http.StatusBadRequest, "Invalid Request", context)
@@ -113,14 +113,8 @@ func (controllerProducts *ControllerProducts) UpdateById() gin.HandlerFunc {
 	}
 
 	return func(context *gin.Context) {
-		var token = context.GetHeader("token")
 		var req Request
 		var idProduct, err = strconv.Atoi(context.Param("id"))
-
-		if token != os.Getenv("ACCESS_TOKEN") {
-			web.SendErrorResponse("Unauthorized", http.StatusUnauthorized, "Invalid Token", context)
-			return 
-		} 
 
 		if err != nil {
 			web.SendErrorResponse("BadRequest", http.StatusBadRequest, "Invalid Request", context)
@@ -167,13 +161,7 @@ func (controllerProducts *ControllerProducts) UpdateById() gin.HandlerFunc {
 func (controllerProducts *ControllerProducts) DeleteById() gin.HandlerFunc {
 	
 	return func(context *gin.Context) {
-		var token = context.GetHeader("token")
 		var idProduct, err = strconv.Atoi(context.Param("id"))
-
-		if token != os.Getenv("ACCESS_TOKEN") {
-			web.SendErrorResponse("Unauthorized", http.StatusUnauthorized, "Invalid Token", context)
-			return 
-		} 
 
 		if err != nil {
 			web.SendErrorResponse("BadRequest", http.StatusBadRequest, "Invalid Request", context)
@@ -208,12 +196,6 @@ func (controllerProducts *ControllerProducts) UpdatePartial() gin.HandlerFunc {
 
 	return func(context *gin.Context) {
 		var idProduct, err = strconv.Atoi(context.Param("id"))
-		var token = context.GetHeader("token")
-
-		if token != os.Getenv("ACCESS_TOKEN") {
-			web.SendErrorResponse("Unauthorized", http.StatusUnauthorized, "Invalid Token", context)
-			return 
-		} 
 
 		if err != nil {
 			web.SendErrorResponse("BadRequest", http.StatusBadRequest, "Invalid Request", context)

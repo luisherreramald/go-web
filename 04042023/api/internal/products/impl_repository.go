@@ -65,6 +65,12 @@ func (rp *repositoryLocal) Update(product *domain.Product, id int) (err error) {
 	return 
 }
 
+func (rp *repositoryLocal) GetAllProducts() (products []domain.Product, err error) {
+	products, err = store.GetAllProducts()
+
+	return
+}
+
 func (rp *repositoryLocal) Delete(id int) (err error) {
 	err = store.Delete(id)
 

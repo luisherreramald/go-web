@@ -98,6 +98,17 @@ func ValidateCodeValueUpdate(product *domain.Product, id int) (err error) {
 	return 
 }
 
+func GetAllProducts() (products []domain.Product, err error) {
+
+	products, err = ProductJsonFileToArray()
+
+	if err != nil {
+		return
+	}
+
+	return 
+}
+
 func SaveStructToFile(products []domain.Product) (err error) {
 	data, err:= json.MarshalIndent(products, "", " ")
 

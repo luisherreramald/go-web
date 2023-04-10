@@ -43,6 +43,12 @@ func (productService *service) Create(product *domain.Product) (err error) {
 	return 
 }
 
+func (productService *service) GetAllProducts() (products []domain.Product, err error) {
+	products, err = productService.rp.GetAllProducts()
+
+	return
+}
+
 func (productService *service) Update(product *domain.Product, id int) (err error) {
 	err = product.Validate()
 	if err != nil {
