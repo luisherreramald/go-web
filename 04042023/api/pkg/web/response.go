@@ -33,3 +33,14 @@ func SendErrorResponse(status string, code int, message string, ctx *gin.Context
 
 	ctx.JSON(code, errorResponse)
 }
+
+func SendErrorMiddleware(status string, code int, message string, ctx *gin.Context) {
+	var errorResponse = ErrorResponse{
+		Status: status,
+		Code: fmt.Sprint(code),
+		Message: message,
+	}
+
+	ctx.AbortWithStatusJSON(code, errorResponse)
+	return
+}

@@ -10,6 +10,7 @@ type Repository interface {
 	Create(product *domain.Product) (err error)
 	Update(product *domain.Product, id int) (err error)
 	Delete(id int) (err error)
+	GetAllProducts() (products []domain.Product, err error)
 }
 
 var (
@@ -23,6 +24,7 @@ type Service interface {
 	Create(product *domain.Product) (err error)
 	Update(product *domain.Product, id int) (err error)
 	Delete(id int) (err error)
+	GetAllProducts() (products []domain.Product, err error)
 }
 
 var (

@@ -2,6 +2,7 @@ package main
 
 import (
 	"api/api/cmd/api/handlers"
+	"api/api/cmd/api/middlewares"
 	"api/api/internal/products"
 
 	"github.com/gin-gonic/gin"
@@ -35,11 +36,13 @@ func main() {
 
 	products := server.Group("/products")
 	{
+		products.Use(middlewares.CheckToken)
 		products.GET("/:id", controllerProducts.GetById())
 		products.POST("", controllerProducts.Create())
 		products.PUT("/:id", controllerProducts.UpdateById())
 		products.DELETE("/:id", controllerProducts.DeleteById())
 		products.PATCH("/:id", controllerProducts.UpdatePartial())
+		products.GET("", controllerProducts.GetAllProducts())
 	}
 
 	server.Run()
